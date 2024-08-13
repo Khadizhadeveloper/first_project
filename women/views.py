@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.shortcuts import render
+from women.models import Women
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'add_page'},
@@ -17,10 +18,11 @@ data_db = [
 
 
 def index(request):
+    posts = Women.published.all()
     data = {
         'title': 'Главная страница',
         'menu': menu,
-        'posts': data_db,
+        'posts': posts,
     }
     return render(request, 'women/index.html', context=data)
 
@@ -29,8 +31,18 @@ def about(request):
     return render(request, 'women/about.html', {'title': 'О сайте', 'menu': menu})
 
 
-def show_post(request, post_id):
-    return HttpResponse(f"Отображение статьи с id = {post_id}")
+def show_post(request, post_slug):
+    try:
+        post = Women.objects.get(slug=post_slug)
+    except Women.DoesNotExist:
+        raise Http404('Page not found')
+
+    data = {
+        'title': post.title,
+        'menu': menu,
+        'post': post,
+    }
+    return render(request, 'women/post.html', context=data)
 
 
 def addpage(request):
