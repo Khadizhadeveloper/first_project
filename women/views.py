@@ -1,28 +1,22 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.shortcuts import render
-from women.models import Women
+from women.models import Women, Category
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'add_page'},
         {'title': "Обратная связь", 'url_name': 'contact'},
-        {'title': "Войти", 'url_name': 'login'}
-]
-
-data_db = [
-    {'id': 1, 'title': 'Анджелина Джоли', 'content': '''<h1>Анджелина Джоли</h1> (англ. Angelina Jolie[7], при рождении Войт (англ. Voight), ранее Джоли Питт (англ. Jolie Pitt); род. 4 июня 1975, Лос-Анджелес, Калифорния, США) — американская актриса кино, телевидения и озвучивания, кинорежиссёр, сценаристка, продюсер, фотомодель, посол доброй воли ООН.
-    Обладательница премии «Оскар», трёх премий «Золотой глобус» (первая актриса в истории, три года подряд выигравшая премию) и двух «Премий Гильдии киноактёров США».''',
-     'is_published': True},
-    {'id': 2, 'title': 'Марго Робби', 'content': 'Биография Марго Робби', 'is_published': False},
-    {'id': 3, 'title': 'it', 'content': 'Биография Джулия Робертс', 'is_published': True},
-]
+        {'title': "Войти", 'url_name': 'login'},
+        ]
 
 
 def index(request):
     posts = Women.published.all()
+    categories = Category.objects.all()
     data = {
         'title': 'Главная страница',
-        'menu': menu,
+        'categories': categories,
         'posts': posts,
+        'menu': menu,
     }
     return render(request, 'women/index.html', context=data)
 
@@ -39,10 +33,27 @@ def show_post(request, post_slug):
 
     data = {
         'title': post.title,
-        'menu': menu,
         'post': post,
+        'menu': menu,
     }
     return render(request, 'women/post.html', context=data)
+
+
+def show_category(request, category_slug):
+    try:
+        cat = Category.objects.get(slug=category_slug)
+    except Category.DoesNotExist:
+        raise Http404('Category not found')
+
+    women = Women.published.filter(category=cat)
+    categories = Category.objects.all()
+    data = {
+        'title': f'Категория {cat.name}',
+        'categories': categories,
+        'posts': women,
+        'menu': menu,
+    }
+    return render(request, 'women/index.html', context=data)
 
 
 def addpage(request):
