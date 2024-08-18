@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.shortcuts import render
-from women.models import Women, Category
+from women.models import Women, Category, WomanTag
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'add_page'},
@@ -53,6 +53,23 @@ def show_category(request, category_slug):
         'posts': women,
         'menu': menu,
     }
+    return render(request, 'women/index.html', context=data)
+
+
+def all_tags(request, tag_slug):
+    try:
+        tag = WomanTag.objects.get(slug=tag_slug)
+    except WomanTag.DoesNotExist:
+        raise Http404('Tag not found')
+
+    posts = tag.women.filter(is_published=True)
+
+    data = {
+        'title': 'Главная страница',
+        'posts': posts,
+        'menu': menu,
+    }
+
     return render(request, 'women/index.html', context=data)
 
 

@@ -1,0 +1,41 @@
+[
+{
+    "model": "women.women",
+    "pk": 1,
+    "fields": {
+        "title": "Джулия Робертс",
+        "slug": "slug1",
+        "content": "Биография Джулия Робертс",
+        "is_published": true,
+        "category": 4,
+        "time_create": "2024-08-14T13:16:45.434Z",
+        "time_update": "2024-08-14T13:16:45.434Z"
+    }
+},
+{
+    "model": "women.women",
+    "pk": 2,
+    "fields": {
+        "title": "Анджелина Джоли",
+        "slug": "slug2",
+        "content": "Биография Анджелина Джоли",
+        "is_published": true,
+        "category": 4,
+        "time_create": "2024-08-14T13:17:56.051Z",
+        "time_update": "2024-08-14T13:17:56.051Z"
+    }
+},
+{
+    "model": "women.women",
+    "pk": 3,
+    "fields": {
+        "title": "Марго Робби",
+        "slug": "slug3",
+        "content": "Биография Марго Робби",
+        "is_published": true,
+        "category": 3,
+        "time_create": "2024-08-14T13:18:47.747Z",
+        "time_update": "2024-08-14T15:02:12.142Z"
+    }
+}
+]

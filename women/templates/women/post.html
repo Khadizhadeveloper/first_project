@@ -1,26 +1,11 @@
 {% extends 'base.html' %}
-{% block nav %}
-    <tr>
-    <!-- Sidebar слева -->
-    <td valign="top" class="left-chapters">
-        <ul id="leftchapters">
-            <li class="selected">Все категории</li>
-            {% for cat in categories %}
-                <li><a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
-            {% endfor %}
-                <li class="share">
-                    <p>Наш канал</p>
-                    <a class="share-yt" href="https://www.youtube.com/channel/UClJzWfGWuGJL2t-3dYKcHTA/playlists"
-                       target="_blank" rel="nofollow"></a>
-                </li>
-        </ul>
-    </td>
-{% endblock nav %}
 {% block content %}
     <h1>{{ title }}</h1>
+    {% if post.husband %}
+        <h2>{{ post.husband }}</h2>
+    {% endif %}
     {% if post.photo %}
     <p><img class="img-article-left" src="{{ post.photo.url }}"></p>
     {% endif%}
-
     {{ post.content|linebreaks }}
 {% endblock content %}

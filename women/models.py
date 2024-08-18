@@ -7,6 +7,20 @@ class PublishedManager(models.Manager):
         return super().get_queryset().filter(is_published=Women.Status.PUBLISHED)
 
 
+class WomanTag(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(
+        max_length=255,
+        unique=True,
+    )
+
+    def get_absolute_url(self):
+        return reverse('tag', kwargs={'tag_slug': self.slug})
+
+    def __str__(self):
+        return self.name
+
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(
@@ -21,7 +35,17 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-# .<model>_set.
+
+class Husband(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.PositiveSmallIntegerField()
+
+    # def get_absolute_url(self):
+    #     return reverse()
+
+    def __str__(self):
+        return self.name
+
 
 class Women(models.Model):
     class Status(models.IntegerChoices):
@@ -35,8 +59,27 @@ class Women(models.Model):
         db_index=True,
     )
     content = models.TextField(blank=True)
-    is_published = models.BooleanField(choices=Status.choices, default=Status.DRAFT)
-    category = models.ForeignKey(to='Category', on_delete=models.PROTECT, related_name='women', null=True)
+    is_published = models.BooleanField(
+        choices=Status.choices,
+        default=Status.DRAFT,
+    )
+    category = models.ForeignKey(
+        to='Category',
+        on_delete=models.PROTECT,
+        related_name='women',
+        null=True,
+    )
+    husband = models.OneToOneField(
+        Husband,
+        on_delete=models.SET_NULL,
+        related_name='wife',
+        null=True,
+        blank=True,
+    )
+    tags = models.ManyToManyField(
+        WomanTag,
+        related_name='women',
+    )
 
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
