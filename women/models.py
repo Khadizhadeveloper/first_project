@@ -92,6 +92,11 @@ class Women(models.Model):
         default=Status.DRAFT,
         verbose_name='Статус'
     )
+    photo = models.ImageField(
+        upload_to=f'women/{slug}/',
+        null=True,
+        blank=True,
+    )
     category = models.ForeignKey(
         to='Category',
         on_delete=models.PROTECT,

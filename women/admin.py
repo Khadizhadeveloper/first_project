@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
+
 from women.models import Women, Husband, WomanTag, Category
 
 
@@ -45,8 +47,9 @@ class HusbandAgeFilter(admin.SimpleListFilter):
 
 @admin.register(Women)
 class WomenAdmin(admin.ModelAdmin):
-    fields = ('category', 'title', 'slug', 'content', 'is_published', 'tags', 'husband', 'time_create', 'time_update')
-    readonly_fields = ('time_create', 'time_update')
+    fields = (
+    'category', 'title', 'slug', 'content', 'is_published', 'photo', 'show_photo', 'tags', 'husband', 'time_create', 'time_update')
+    readonly_fields = ('time_create', 'time_update', 'show_photo')
     list_display = ('id', 'title', 'is_published', 'husband', 'count_tags')
     list_display_links = ('title',)
     actions = ("set_published", "set_draft")
@@ -66,6 +69,11 @@ class WomenAdmin(admin.ModelAdmin):
     def set_draft(self, request, queryset):
         queryset.update(is_published=Women.Status.DRAFT)
 
+    @admin.display(description="Изображение")
+    def show_photo(self, women: Women):
+        if women.photo:
+            return mark_safe(f'<img src="women.photo.url" width=200>')
+        return None
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -90,4 +98,3 @@ class WomanTagAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'slug')
     list_display_links = ('id', 'name')
     search_fields = ('name', 'slug')
-

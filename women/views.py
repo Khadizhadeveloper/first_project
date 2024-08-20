@@ -1,9 +1,10 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpResponseRedirect, HttpResponsePermanentRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from women.models import Women, Category, WomanTag
+from .forms import AddPostForm
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
-        {'title': "Добавить статью", 'url_name': 'add_page'},
+        {'title': "Добавить статью", 'url_name': 'add-post'},
         {'title': "Обратная связь", 'url_name': 'contact'},
         {'title': "Войти", 'url_name': 'login'},
         ]
@@ -73,8 +74,18 @@ def all_tags(request, tag_slug):
     return render(request, 'women/index.html', context=data)
 
 
-def addpage(request):
-    return render(request, 'women/add_women.html')
+def add_post(request):
+    print(request.GET)
+    print(request.POST)
+    print(request.FILES)
+    if request.method == 'POST':
+        form = AddPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = AddPostForm()
+    return render(request, 'women/add_post.html', {'form': form})
 
 
 def contact(request):
