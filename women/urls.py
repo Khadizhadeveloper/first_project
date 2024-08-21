@@ -1,14 +1,22 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from .views import woman, woman_tag, category
 
+woman_urls = [
+    path('', woman.WomenListView.as_view(), name='woman-list'),
+    path('create/', woman.WomanCreateView.as_view(), name='woman-create'),
+    path('<int:pk>/', woman.WomanDetailView.as_view(), name='woman_detail'),
+]
+
+woman_tag_urls = [
+    path('<int:pk>/', woman_tag.DetailTagView.as_view(), name='woman-tag-detail'),
+]
+
+woman_category_urls = [
+    path('<int:pk>/', category.ShowCategoryView.as_view(), name='woman-category-detail'),
+]
 
 urlpatterns = [
-    path('', views.index, name='home'),
-    path('about/', views.about, name='about'),
-    path('add-post/', views.add_post, name='add-post'),
-    path('contact/', views.contact, name='contact'),
-    path('login/', views.login, name='login'),
-    path('post/<slug:post_slug>/', views.show_post, name='post'),
-    path('category/<slug:category_slug>/', views.show_category, name='category'),
-    path('tag/<slug:tag_slug>/', views.all_tags, name='tag'),
+    path('', include(woman_urls)),
+    path('tag/', include(woman_tag_urls)),
+    path('category/', include(woman_category_urls)),
 ]

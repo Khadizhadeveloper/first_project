@@ -48,7 +48,8 @@ class HusbandAgeFilter(admin.SimpleListFilter):
 @admin.register(Women)
 class WomenAdmin(admin.ModelAdmin):
     fields = (
-    'category', 'title', 'slug', 'content', 'is_published', 'photo', 'show_photo', 'tags', 'husband', 'time_create', 'time_update')
+        'category', 'title', 'content', 'is_published', 'photo', 'show_photo', 'tags', 'husband', 'time_create',
+        'time_update')
     readonly_fields = ('time_create', 'time_update', 'show_photo')
     list_display = ('id', 'title', 'is_published', 'husband', 'count_tags')
     list_display_links = ('title',)
@@ -75,12 +76,13 @@ class WomenAdmin(admin.ModelAdmin):
             return mark_safe(f'<img src="women.photo.url" width=200>')
         return None
 
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    fields = ('name', 'slug')
-    list_display = ('id', 'name', 'slug')
+    fields = ('name',)
+    list_display = ('id', 'name')
     list_display_links = ('id', 'name')
-    search_fields = ('name', 'slug')
+    search_fields = ('name',)
 
 
 @admin.register(Husband)
@@ -94,7 +96,7 @@ class HusbandAdmin(admin.ModelAdmin):
 
 @admin.register(WomanTag)
 class WomanTagAdmin(admin.ModelAdmin):
-    fields = ('name', 'slug')
-    list_display = ('id', 'name', 'slug')
+    fields = ('name',)
+    list_display = ('id', 'name')
     list_display_links = ('id', 'name')
-    search_fields = ('name', 'slug')
+    search_fields = ('name',)

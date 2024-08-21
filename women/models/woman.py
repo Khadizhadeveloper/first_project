@@ -1,72 +1,12 @@
-import uuid
 from django.db import models
+from .husband import Husband
+from .woman_tag import WomanTag
 from django.shortcuts import reverse
 
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(is_published=Women.Status.PUBLISHED)
-
-
-class WomanTag(models.Model):
-    name = models.CharField(
-        max_length=255,
-        verbose_name="Имя",
-    )
-    slug = models.SlugField(
-        max_length=255,
-        unique=True,
-    )
-
-    def get_absolute_url(self):
-        return reverse('tag', kwargs={'tag_slug': self.slug})
-
-    class Meta:
-        verbose_name = 'Тег'
-        verbose_name_plural = 'Теги'
-
-    def __str__(self):
-        return self.name
-
-
-class Category(models.Model):
-    name = models.CharField(
-        max_length=100,
-        verbose_name="Имя",
-    )
-    slug = models.SlugField(
-        max_length=255,
-        unique=True,
-        db_index=True,
-    )
-
-    def get_absolute_url(self):
-        return reverse("category", kwargs={"category_slug": self.slug})
-
-    class Meta:
-        verbose_name = 'Категория'
-        verbose_name_plural = 'Категории'
-
-    def __str__(self):
-        return self.name
-
-
-class Husband(models.Model):
-    name = models.CharField(
-        max_length=100,
-        verbose_name="Имя",
-    )
-    age = models.PositiveSmallIntegerField(verbose_name="Возраст")
-
-    # def get_absolute_url(self):
-    #     return reverse()
-
-    class Meta:
-        verbose_name = 'Мужи Известных женщин'
-        verbose_name_plural = 'Мужи Известных женщин'
-
-    def __str__(self):
-        return self.name
 
 
 class Women(models.Model):
@@ -78,11 +18,6 @@ class Women(models.Model):
         max_length=255,
         verbose_name="Заголовок",
     )
-    slug = models.SlugField(
-        max_length=255,
-        unique=True,
-        db_index=True,
-    )
     content = models.TextField(
         blank=True,
         verbose_name='Текст статьи'
@@ -93,7 +28,7 @@ class Women(models.Model):
         verbose_name='Статус'
     )
     photo = models.ImageField(
-        upload_to=f'women/{slug}/',
+        upload_to=f'women/{title}/',
         null=True,
         blank=True,
     )
@@ -139,9 +74,5 @@ class Women(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
-        self.slug = self.slug + "_" + str(uuid.uuid4())
-        super().save(*args, **kwargs)
-
     def get_absolute_url(self):
-        return reverse('post', kwargs={'post_slug': self.slug})
+        return reverse('woman_detail', kwargs={'pk': self.id})
