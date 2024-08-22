@@ -16,7 +16,7 @@
             {% block mainmenu %}
                 <div class="header">
                     <ul id="mainmenu" class="mainmenu">
-                        <li class="logo"><a href="{% url 'woman-create' %}">
+                        <li class="logo"><a href="{% url 'women:woman-list' %}">
                             <div class="logo"></div>
                         </a></li>
                         {% for m in menu %}
@@ -26,7 +26,13 @@
                                 <li class="last"><a href="{% url m.url_name %}">{{ m.title }}</a></li>
                             {% endif %}
                         {% endfor %}
+                    {% if user.is_authenticated %}
+                        <li class="last">{{ user.username }} | <a href="{% url 'users:logout' %}">Выйти</a></li>
+                    {% else %}
+                        <li class="last"><a href="{% url 'users:login' %}">Войти</a></li>
+                    {% endif %}
                     </ul>
+
                     <div class="clear"></div>
                 </div>
             {% endblock mainmenu %}
@@ -37,7 +43,7 @@
                     <!-- Sidebar слева -->
                     <td valign="top" class="left-chapters">
                         <ul id="leftchapters">
-                        {% show_categories %}
+                            {% show_categories %}
                             <li class="share">
                                 <p>Наш канал</p>
                                 <a class="share-yt"
@@ -59,6 +65,11 @@
                             {% endblock %}
                         </div>
                         <!-- Конец блока контента -->
+
+                        <!-- Блок пагинации -->
+                        {% block navigation %}
+                        {% endblock %}
+                        <!-- Конец блока пагинации -->
 
                     </td>
                 </tr>

@@ -14,7 +14,7 @@ menu = [{'title': "О сайте", 'url_name': 'about'},
 
 class ShowCategoryView(DetailView):
     model = Category
-    template_name = 'women/women_list.html'
+    template_name = 'women/woman_list.html'
 
     extra_context = {
         'title': f'Категория',

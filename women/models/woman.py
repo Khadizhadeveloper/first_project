@@ -1,15 +1,15 @@
 from django.db import models
 from .husband import Husband
 from .woman_tag import WomanTag
-from django.shortcuts import reverse
+from django.urls import reverse
 
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(is_published=Women.Status.PUBLISHED)
+        return super().get_queryset().filter(is_published=Woman.Status.PUBLISHED)
 
 
-class Women(models.Model):
+class Woman(models.Model):
     class Status(models.IntegerChoices):
         DRAFT = 0, 'Черновик'
         PUBLISHED = 1, 'Опубликовано'
@@ -75,4 +75,4 @@ class Women(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('woman_detail', kwargs={'pk': self.id})
+        return reverse('women:woman_detail', kwargs={'pk': self.id})

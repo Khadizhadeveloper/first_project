@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from women.models import Women, Husband, WomanTag, Category
+from women.models import Woman, Husband, WomanTag, Category
 
 
 class MarriedFilter(admin.SimpleListFilter):
@@ -45,8 +45,8 @@ class HusbandAgeFilter(admin.SimpleListFilter):
             return queryset.filter()
 
 
-@admin.register(Women)
-class WomenAdmin(admin.ModelAdmin):
+@admin.register(Woman)
+class WomanAdmin(admin.ModelAdmin):
     fields = (
         'category', 'title', 'content', 'is_published', 'photo', 'show_photo', 'tags', 'husband', 'time_create',
         'time_update')
@@ -59,19 +59,19 @@ class WomenAdmin(admin.ModelAdmin):
     list_filter = ('is_published', 'category', 'tags', MarriedFilter)
 
     @admin.display(description="Количество тегов")
-    def count_tags(self, obj: Women):
+    def count_tags(self, obj: Woman):
         return f"Count tags = {obj.tags.count()}"
 
     @admin.display(description="Опубликовать выбранные записи")
     def set_published(self, request, queryset):
-        queryset.update(is_published=Women.Status.PUBLISHED)
+        queryset.update(is_published=Woman.Status.PUBLISHED)
 
     @admin.display(description="Снять с публикации выбранные записи")
     def set_draft(self, request, queryset):
-        queryset.update(is_published=Women.Status.DRAFT)
+        queryset.update(is_published=Woman.Status.DRAFT)
 
     @admin.display(description="Изображение")
-    def show_photo(self, women: Women):
+    def show_photo(self, women: Woman):
         if women.photo:
             return mark_safe(f'<img src="women.photo.url" width=200>')
         return None

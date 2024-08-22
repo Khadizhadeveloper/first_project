@@ -18,6 +18,7 @@ INSTALLED_APPS = [
 
     'django_extensions',
 
+    'user.apps.UserConfig',
     'women.apps.WomenConfig',
 ]
 
@@ -32,6 +33,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+LOGIN_REDIRECT_URL = 'women:woman-list'
+LOGOUT_REDIRECT_URL = 'users:login'
+LOGIN_URL = 'users:login'
+# LOGIN_REDIRECT_URL – задает URL-адрес, на который следует перенаправлять пользователя после успешной авторизации;
+# LOGIN_URL – определяет URL-адрес, на который следует перенаправить неавторизованного пользователя при попытке посетить закрытую страницу сайта;
+# LOGOUT_REDIRECT_URL – задает URL-адрес, на который перенаправляется пользователь после выхода.
 
 TEMPLATES = [
     {

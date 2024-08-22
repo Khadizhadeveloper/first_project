@@ -1,5 +1,5 @@
 from django.db import models
-from django.shortcuts import reverse
+from django.urls import reverse
 
 
 class WomanTag(models.Model):
@@ -9,7 +9,7 @@ class WomanTag(models.Model):
     )
 
     def get_absolute_url(self):
-        return reverse('woman-tag-detail', kwargs={'pk': self.id})
+        return reverse('women:woman-tag-detail', kwargs={'pk': self.id})
 
     class Meta:
         verbose_name = 'Тег'

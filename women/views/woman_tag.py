@@ -5,7 +5,7 @@ from ..utils import DataMixin
 
 class DetailTagView(DataMixin, DetailView):
     model = WomanTag
-    template_name = 'women/women_list.html'
+    template_name = 'women/woman_list.html'
     title_page = "Главная страница"
 
     def get(self, request, *args, **kwargs):

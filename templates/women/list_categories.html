@@ -1,5 +1,5 @@
 {% if categories %}
-    <li><a href="{% url 'woman-list' %}">Все категории</a></li>
+    <li><a href="{% url 'women:woman-list' %}">Все категории</a></li>
     {% for category in categories %}
         <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
     {% endfor %}

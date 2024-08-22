@@ -1,32 +1,29 @@
-from django.shortcuts import render, redirect
-from women.models import Women
+from women.models import Woman
 from ..forms import AddPostForm
-from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from ..utils import DataMixin
 
 
-class WomenListView(DataMixin, ListView):
-    model = Women
-    title_page = 'Главная страница'
+class WomanListView(ListView):
+    model = Woman
+    paginate_by = 1
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = None
+        context['title'] = 'Главная страница'
+        return context
 
     def get_queryset(self):
-        return Women.published.all()
+        return Woman.published.all()
 
 
 class WomanDetailView(DataMixin, DetailView):
-    model = Women
-    title_page = 'Главная страница',
+    model = Woman
+    title_page = 'Детальная страница',
 
 
-class WomanCreateView(View):
-    def get(self, request):
-        form = AddPostForm()
-        return render(request, 'women/add_post.html', {'form': form})
-
-    def post(self, request):
-        form = AddPostForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('woman-create')
-        return render(request, 'women/add_post.html', {'form': form})
+class WomanCreateView(CreateView):
+    model = Woman
+    form_class = AddPostForm
+    template_name = "women/add_post.html"

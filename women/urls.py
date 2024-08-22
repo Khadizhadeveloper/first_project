@@ -1,8 +1,10 @@
 from django.urls import path, include
 from .views import woman, woman_tag, category
 
+app_name = 'women'
+
 woman_urls = [
-    path('', woman.WomenListView.as_view(), name='woman-list'),
+    path('', woman.WomanListView.as_view(), name='woman-list'),
     path('create/', woman.WomanCreateView.as_view(), name='woman-create'),
     path('<int:pk>/', woman.WomanDetailView.as_view(), name='woman_detail'),
 ]
