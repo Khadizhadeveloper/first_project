@@ -6,7 +6,8 @@ app_name = 'women'
 woman_urls = [
     path('', woman.WomanListView.as_view(), name='woman-list'),
     path('create/', woman.WomanCreateView.as_view(), name='woman-create'),
-    path('<int:pk>/', woman.WomanDetailView.as_view(), name='woman_detail'),
+    path('<int:pk>/', woman.WomanDetailView.as_view(), name='woman-detail'),
+    path('<int:pk>/update/', woman.WomanUpdateView.as_view(), name='woman-update'),
 ]
 
 woman_tag_urls = [

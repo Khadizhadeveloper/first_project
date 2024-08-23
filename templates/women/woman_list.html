@@ -3,6 +3,7 @@
     <ul class="list-articles">
         {% for p in object_list %}
             {% if p.is_published %}
+                <p class="first">Категория: {{ p.category.name }} | {{ p.author.username|default:"Неизвестен" }}</p>
                 <li><h2>{{ p.title }}</h2>
                     {% autoescape off %}
                         {{ p.content|linebreaks|truncatewords:40 }}

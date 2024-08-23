@@ -48,7 +48,7 @@ class HusbandAgeFilter(admin.SimpleListFilter):
 @admin.register(Woman)
 class WomanAdmin(admin.ModelAdmin):
     fields = (
-        'category', 'title', 'content', 'is_published', 'photo', 'show_photo', 'tags', 'husband', 'time_create',
+        'category', 'title', 'content', 'is_published', 'photo', 'author', 'show_photo', 'tags', 'husband', 'time_create',
         'time_update')
     readonly_fields = ('time_create', 'time_update', 'show_photo')
     list_display = ('id', 'title', 'is_published', 'husband', 'count_tags')

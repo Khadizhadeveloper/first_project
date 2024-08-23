@@ -5,7 +5,9 @@
         <h2>{{ object.husband }}</h2>
     {% endif %}
     {% if object.photo %}
-    <p><img class="img-article-left" src="{{ object.photo.url }}"></p>
-    {% endif%}
+        <p><img class="img-article-left" src="{{ object.photo.url }}"></p>
+    {% endif %}
     {{ object.content|linebreaks }}
+    <hr>
+    <p><a href="{{ object.get_absolute_url }}">Изменить пост</a></p>
 {% endblock content %}

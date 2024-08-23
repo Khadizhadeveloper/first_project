@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from .husband import Husband
 from .woman_tag import WomanTag
@@ -29,6 +30,14 @@ class Woman(models.Model):
     )
     photo = models.ImageField(
         upload_to=f'women/{title}/',
+        null=True,
+        blank=True,
+    )
+    author = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.SET_NULL,
+        related_name='women',
+        verbose_name='Автор',
         null=True,
         blank=True,
     )
@@ -75,4 +84,4 @@ class Woman(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('women:woman_detail', kwargs={'pk': self.id})
+        return reverse('women:woman-detail', kwargs={'pk': self.id})
