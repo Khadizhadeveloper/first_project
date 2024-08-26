@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form method="post">
-    {% csrf_token %}
-    {{ from.as_p }}
+    <h1>Редактирование {{ object.name }}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Сохранить</button>
     </form>
 {% endblock content %}

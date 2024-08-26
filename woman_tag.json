@@ -1,0 +1,51 @@
+[
+  {
+    "model": "women.womantag",
+    "pk": 1,
+    "fields": {
+      "name": "Блондинки"
+    }
+  },
+  {
+    "model": "women.womantag",
+    "pk": 2,
+    "fields": {
+      "name": "Брюнетки"
+    }
+  },
+  {
+    "model": "women.womantag",
+    "pk": 3,
+    "fields": {
+      "name": "Оскар"
+    }
+  },
+  {
+    "model": "women.womantag",
+    "pk": 4,
+    "fields": {
+      "name": "Олимпиада"
+    }
+  },
+  {
+    "model": "women.womantag",
+    "pk": 5,
+    "fields": {
+      "name": "Высокие"
+    }
+  },
+  {
+    "model": "women.womantag",
+    "pk": 6,
+    "fields": {
+      "name": "средние"
+    }
+  },
+  {
+    "model": "women.womantag",
+    "pk": 7,
+    "fields": {
+      "name": "Низкие"
+    }
+  }
+]

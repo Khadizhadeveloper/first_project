@@ -1,0 +1,26 @@
+[
+  {
+    "model": "women.husband",
+    "pk": 1,
+    "fields": {
+      "name": "Бред Питт",
+      "age": 60
+    }
+  },
+  {
+    "model": "women.husband",
+    "pk": 2,
+    "fields": {
+      "name": "Том Акерли",
+      "age": 34
+    }
+  },
+  {
+    "model": "women.husband",
+    "pk": 3,
+    "fields": {
+      "name": "Джеймс Райтон",
+      "age": 40
+    }
+  }
+]

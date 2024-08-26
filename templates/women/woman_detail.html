@@ -9,5 +9,7 @@
     {% endif %}
     {{ object.content|linebreaks }}
     <hr>
-    <p><a href="{{ object.get_absolute_url }}">Изменить пост</a></p>
+    <form action="{% url 'women:woman-update' object.id %}" method="get">
+        <button type="submit" class="btn btn-primary">Редактировать</button>
+    </form>
 {% endblock content %}

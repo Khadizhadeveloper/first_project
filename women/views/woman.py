@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 from women.models import Woman
 from ..forms import AddPostForm
@@ -28,7 +29,13 @@ class WomanDetailView(LoginRequiredMixin, DataMixin, DetailView):
 class WomanUpdateView(LoginRequiredMixin, DataMixin, UpdateView):
     model = Woman
     form_class = AddPostForm
+    # fields = '__all__'
+    template_name = 'women/woman_update.html'
     title_page = 'Изменить данный пост'
+    success_url = reverse_lazy('women:woman-detail')
+
+    def get_success_url(self):
+        return reverse_lazy('women:woman-detail', kwargs={'pk': self.object.pk})
 
 
 class WomanCreateView(LoginRequiredMixin, CreateView):
