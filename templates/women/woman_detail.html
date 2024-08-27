@@ -2,14 +2,16 @@
 {% block content %}
     <h1>{{ title }}</h1>
     {% if object.husband %}
-        <h2>{{ object.husband }}</h2>
+        <h2>Супруга: {{ object.husband }}</h2>
     {% endif %}
     {% if object.photo %}
         <p><img class="img-article-left" src="{{ object.photo.url }}"></p>
     {% endif %}
     {{ object.content|linebreaks }}
     <hr>
-    <form action="{% url 'women:woman-update' object.id %}" method="get">
-        <button type="submit" class="btn btn-primary">Редактировать</button>
-    </form>
+    {% if user == object.author.id %}
+        <form action="{% url 'women:woman-update' object.id %}" method="get">
+            <button type="submit" class="btn btn-primary">Редактировать</button>
+        </form>
+    {% endif %}
 {% endblock content %}

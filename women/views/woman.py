@@ -25,6 +25,12 @@ class WomanDetailView(LoginRequiredMixin, DataMixin, DetailView):
     model = Woman
     title_page = 'Детальная страница',
 
+    def get_context_user(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context['user']=self.request.user.id
+        return context
+
+
 
 class WomanUpdateView(LoginRequiredMixin, DataMixin, UpdateView):
     model = Woman
